@@ -1,19 +1,21 @@
+import json
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QListWidget, QLabel, QPushButton, QLineEdit, QTextEdit, QHBoxLayout, \
     QVBoxLayout
-import json
 
 notes = {
-    "Гарного дня!": {
-        "текст": "Доброго дня, бажаю успіху",
-        "теги": ["Тег1", "Тег2"]
+    "Ласкаво просимо!": {
+        "текст": "Вітаю вас у нашому додатку",
+        "теги": ["Вітання", "Привіт"]
     },
     "Домашка": {
-        "текст": "Доробити домашку на понеділок",
-        "теги": ["Математика", "Фізика", "Хімія"]
-
+        "текст": "Треба зробити домашку до понеділка",
+        "теги": ["Хімія", "Математика"]
     }
 }
+
+with open("notes_data.json", "w") as file:
+    json.dump(notes, file)
 
 app = QApplication([])
 
@@ -74,14 +76,31 @@ def show_notes():
     list_tags.clear()
     list_tags.addItems(notes[key]["теги"])
 
-with open("note_data.json", "w") as file:
-    json.dump(notes, file)
+def save_note():
+    if list_notes.selectedItems():
+        key = list_notes.selectedItems()[0].text()
+        notes[key]["текст"] = field_text.toPlainText()
+        with open("notes_data.json", "w") as file:
+            json.dump(notes, file, sort_keys=True)
+    else:
+        print("Замітка для збереження не обрана!")
 
-with open("note_data.json", "r") as file:
-    notes = json.load(file)
-list_notes.addItems(notes)
+def del_note():
+    if list_notes.selectedItems():
+        key = list_notes.selectedItems()[0].text()
+        del notes[key]
+        list_tags.clear()
+        list_notes.clear()
+        field_text.clear()
+        list_notes.addItems(notes)
+        with open("notes_data.json", "w") as file:
+            json.dump(notes, file, sort_keys=True)
+    else:
+        print("Замітка для видалення не обрана!")
 
 list_notes.itemClicked.connect(show_notes)
+
+list_notes.addItems(notes)
 
 window.show()
 app.exec_()
