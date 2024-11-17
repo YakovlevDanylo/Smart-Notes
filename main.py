@@ -1,21 +1,19 @@
-import json
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QListWidget, QLabel, QPushButton, QLineEdit, QTextEdit, QHBoxLayout, \
     QVBoxLayout
+import json
 
 notes = {
-    "Ласкаво просимо!": {
-        "текст": "Вітаю вас у нашому додатку",
-        "теги": ["Вітання", "Привіт"]
+    "Гарного дня!": {
+        "текст": "Доброго дня, бажаю успіху",
+        "теги": ["Тег1", "Тег2"]
     },
     "Домашка": {
-        "текст": "Треба зробити домашку до понеділка",
-        "теги": ["Хімія", "Математика"]
+        "текст": "Доробити домашку на понеділок",
+        "теги": ["Математика", "Фізика", "Хімія"]
+
     }
 }
-
-with open("notes_data.json", "w") as file:
-    json.dump(notes, file)
 
 app = QApplication([])
 
@@ -76,9 +74,14 @@ def show_notes():
     list_tags.clear()
     list_tags.addItems(notes[key]["теги"])
 
-list_notes.itemClicked.connect(show_notes)
+with open("note_data.json", "w") as file:
+    json.dump(notes, file)
 
+with open("note_data.json", "r") as file:
+    notes = json.load(file)
 list_notes.addItems(notes)
+
+list_notes.itemClicked.connect(show_notes)
 
 window.show()
 app.exec_()
