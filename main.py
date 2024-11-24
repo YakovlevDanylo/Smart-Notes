@@ -153,35 +153,12 @@ with open("note_data.json", "r") as file:
 list_notes.addItems(notes)
 
 list_notes.itemClicked.connect(show_notes)
-
-window.setStyleSheet("""
-QWidget {
-    background-color: #ffe37a;
-}
-QPushButton {
-    background-color: #007bff;
-    color: yellow;
-    font-size: 14px;
-    padding: 10px;
-    border-radius: 5px;
-}
-QPushButton:hover {
-    background-color: #0056b3;
-}
-QLabel {
-    font-size: 16px;
-    color: #333;
-}
-QListWidget {
-    background-color: 	#84cdee;
-    border: 10px solid 	#50b8e7;
-}
-QTextEdit {
-    background-color: #fbffa1;
-    border: 1px solid #ccc;
-    padding: 5px;
-}
-""")
+button_note_create.clicked.connect(add_note)
+button_note_save.clicked.connect(save_note)
+button_note_del.clicked.connect(del_note)
+button_tag_add.clicked.connect(add_tag)
+button_tag_del.clicked.connect(del_tag)
+button_tag_search.clicked.connect(search_tag)
 
 window.show()
 app.exec_()
