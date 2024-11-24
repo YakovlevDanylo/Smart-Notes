@@ -154,5 +154,34 @@ list_notes.addItems(notes)
 
 list_notes.itemClicked.connect(show_notes)
 
+window.setStyleSheet("""
+QWidget {
+    background-color: #ffe37a;
+}
+QPushButton {
+    background-color: #007bff;
+    color: yellow;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 5px;
+}
+QPushButton:hover {
+    background-color: #0056b3;
+}
+QLabel {
+    font-size: 16px;
+    color: #333;
+}
+QListWidget {
+    background-color: 	#84cdee;
+    border: 10px solid 	#50b8e7;
+}
+QTextEdit {
+    background-color: #fbffa1;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+""")
+
 window.show()
 app.exec_()
