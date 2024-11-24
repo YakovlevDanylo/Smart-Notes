@@ -114,7 +114,17 @@ def add_tag():
     else:
         print("Замітка для видалення не обрана")
 
-
+def del_tag():
+    if list_notes.selectedItems():
+        key = list_notes.selectedItems()[0].text()
+        tag = list_tags.selectedItems()[0].text()
+        notes[key]["теги"].remove(tag)
+        list_tags.clear()
+        list_tags.addItems(notes[key]["теги"])
+        with open("notes_data.json", "w") as file:
+            json.dump(notes, file, sort_keys=True)
+    else:
+        print("Тег для видалення не обраний!")
 
 
 with open("note_data.json", "w") as file:
