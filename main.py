@@ -126,6 +126,24 @@ def del_tag():
     else:
         print("Тег для видалення не обраний!")
 
+def search_tag():
+    tag = field_tag.text()
+    if button_tag_search.text() == "Шукати замітки по тегу" and tag:
+        notes_filtered = {}
+        for note in notes:
+            if tag in notes[note]["теги"]:
+                notes_filtered[note] = notes[note]
+        button_tag_search.setText("Скинути пошук")
+        field_tag.clear()
+        list_notes.clear()
+        list_notes.addItems(notes_filtered)
+    elif button_tag_search.text() == "Скинути пошук":
+        field_tag.clear()
+        list_notes.clear()
+        list_tags.clear()
+        list_notes.addItems(notes)
+        button_tag_search.setText("Шукати замітки по тегу")
+
 
 with open("note_data.json", "w") as file:
     json.dump(notes, file)
